@@ -52,7 +52,7 @@ version=$(cat results/execute_demo-project.json | grep "versions" -A 1 | grep -v
 echo "Version: $version"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -vms 5 -iterations 1 -warmup 0 -version $version -test de.test.CalleeTest\#onlyCallMethod1 -folder $DEMO_HOME -executionfile results/execute_demo-project.json
+./peass searchcause -vms 5 -iterations 1 -warmup 0 -version $version -test de.test.junit5.Callee5Test\#onlyCallMethod1 -folder $DEMO_HOME -executionfile results/execute_demo-project.json
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
 ./peass visualizerca -data ../demo-project_peass -propertyFolder results/properties_demo-project/
@@ -64,11 +64,11 @@ fi
 
 #Check, if a slowdown is detected for innerMethod
 (
-	state=$(grep '"call" : "de.test.Callee#innerMethod",\|state' results/$version/de.test.CalleeTest_onlyCallMethod1.js | grep "innerMethod" -A 1 | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
+	state=$(grep '"call" : "de.junit5.Callee5#innerMethod",\|state' results/$version/de.test.junit5.Callee5Test_onlyCallMethod1.js | grep "innerMethod" -A 1 | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
 	if [ "$state" != "SLOWER" ]
 	then
-		echo "State for de.test.Callee#innerMethod in de.test.CalleeTest#onlyCallMethod1.html has not the expected value SLOWER, but was $state!"
-		cat results/$version/de.test.CalleeTest_onlyCallMethod1.js
+		echo "State for de.junit5.Callee5#innerMethod in de.test.junit5.Callee5Test#onlyCallMethod1.html has not the expected value SLOWER, but was $state!"
+		cat results/$version/de.test.junit5.Callee5Test_onlyCallMethod1.js
 		exit 1
 	else
 		echo "Slowdown is detected for innerMethod."
@@ -76,7 +76,7 @@ fi
 ) && true
 
 (
-	sourceMethodLine=$(grep "de.test.Callee.method1_" results/$version/de.test.CalleeTest_onlyCallMethod1.js -A 3 | head -n 3 | grep innerMethod)
+	sourceMethodLine=$(grep "de.junit5.Callee5.method1_" results/$version/de.test.junit5.Callee5Test_onlyCallMethod1.js -A 3 | head -n 3 | grep innerMethod)
 	if [[ "$sourceMethodLine" != *"innerMethod();" ]]
 	then
 		echo "Line could not be detected - source reading probably failed."
