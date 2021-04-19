@@ -5,11 +5,11 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ master ]
+    branches: [ identifyRegressionJUnit4And5 ]
   pull_request:
-    branches: [ master ]
+    branches: [ identifyRegressionJUnit4And5 ]
   workflow_dispatch:
-    branches: [ master ]
+    branches: [ identifyRegressionJUnit4And5 ]
   schedule:
     - cron: "0 4 * * *"
 jobs:
