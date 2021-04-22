@@ -5,11 +5,11 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ identifyRegressionJUnit4And5 ]
+    branches: [ testProjectWithSpace ]
   pull_request:
-    branches: [ identifyRegressionJUnit4And5 ]
+    branches: [ testProjectWithSpace ]
   workflow_dispatch:
-    branches: [ identifyRegressionJUnit4And5 ]
+    branches: [ testProjectWithSpace ]
   schedule:
     - cron: "0 4 * * *"
 jobs:
@@ -27,5 +27,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java }}
-    - name: executeAll
-      run: ./executeAll.sh
+    - name: executeAllSpace
+      run: ./executeAllSpace.sh
