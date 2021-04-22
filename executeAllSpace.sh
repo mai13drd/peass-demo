@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
-tar -xf demo-project.tar.xz
+tar -xf demo project.tar.xz
 git clone https://github.com/DaGeRe/peass.git && \
 	cd peass && \
-	DEMO_HOME=$(pwd)/../demo-project && \
+	DEMO_HOME=$(pwd)/../demo project && \
 	mvn clean install -DskipTests=true -V
 
-right_sha="$(cd ../demo-project && git rev-parse HEAD)"
+right_sha="$(cd ../demo project && git rev-parse HEAD)"
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
@@ -14,48 +14,48 @@ echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
 	./peass select -folder $DEMO_HOME
 ) && true
 
-if [ ! -f results/execute_demo-project.json ]
+if [ ! -f results/execute_demo project.json ]
 then
 	echo "Main Logs"
-	ls ../demo-project_peass/
-	ls ../demo-project_peass/logs/
+	ls ../demo project_peass/
+	ls ../demo project_peass/logs/
 	echo "projektTemp"
-	ls ../demo-project_peass/projectTemp/
-	ls ../demo-project_peass/projectTemp/1_peass/
-	ls ../demo-project_peass/projectTemp/1_peass/logs/
-	cat ../demo-project_peass/projectTemp/1_peass/logs/bf6d4897d8b13dcdc23d0e29d9b3b1791dec9d34/*/* 
-	cat ../demo-project_peass/projectTemp/1_peass/logs/$right_sha/*/*
+	ls ../demo project_peass/projectTemp/
+	ls ../demo project_peass/projectTemp/1_peass/
+	ls ../demo project_peass/projectTemp/1_peass/logs/
+	cat ../demo project_peass/projectTemp/1_peass/logs/bf6d4897d8b13dcdc23d0e29d9b3b1791dec9d34/*/*
+	cat ../demo project_peass/projectTemp/1_peass/logs/$right_sha/*/*
 	exit 1
 fi
 
 echo ":::::::::::::::::::::MEASURE::::::::::::::::::::::::::::::::::::::::::"
-./peass measure -executionfile results/execute_demo-project.json -folder $DEMO_HOME -iterations 1 -warmup 0 -repetitions 1 -vms 2
+./peass measure -executionfile results/execute_demo project.json -folder $DEMO_HOME -iterations 1 -warmup 0 -repetitions 1 -vms 2
 
 echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
-./peass getchanges -data ../demo-project_peass/ -dependencyfile results/deps_demo-project.json
+./peass getchanges -data ../demo project_peass/ -dependencyfile results/deps_demo project.json
 
-#Check, if changes_demo-project.json contains the correct commit-SHA
+#Check, if changes_demo project.json contains the correct commit-SHA
 (
-	test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
+	test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
 	if [ "$right_sha" != "$test_sha" ]
 	then
-		echo "commit-SHA is not equal to the SHA in changes_demo-project.json!"
-		cat results/statistics/demo-project.json
+		echo "commit-SHA is not equal to the SHA in changes_demo project.json!"
+		cat results/statistics/demo project.json
 		exit 1
 	else
-		echo "changes_demo-project.json contains the correct commit-SHA."
+		echo "changes_demo project.json contains the correct commit-SHA."
 	fi
 ) && true
 
 # If minor updates to the project occur, the version name may change
-version=$(cat results/execute_demo-project.json | grep "versions" -A 1 | grep -v "version" | tr -d "\": {")
+version=$(cat results/execute_demo project.json | grep "versions" -A 1 | grep -v "version" | tr -d "\": {")
 echo "Version: $version"
 
 echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
-./peass searchcause -vms 5 -iterations 1 -warmup 0 -version $version -test de.test.junit4.Callee4Test\#onlyCallMethod1 -folder $DEMO_HOME -executionfile results/execute_demo-project.json
+./peass searchcause -vms 5 -iterations 1 -warmup 0 -version $version -test de.test.junit4.Callee4Test\#onlyCallMethod1 -folder $DEMO_HOME -executionfile results/execute_demo project.json
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
-./peass visualizerca -data ../demo-project_peass -propertyFolder results/properties_demo-project/
+./peass visualizerca -data ../demo project_peass -propertyFolder results/properties_demo project/
 
 
 if [ $? -ne 0 ]
