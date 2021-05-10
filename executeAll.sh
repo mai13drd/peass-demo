@@ -51,17 +51,17 @@ echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
 ./peass searchcause -vms 5 -iterations 1 -warmup 0 -version $version -test de.test.CalleeTest\#onlyCallMethod1 -folder $DEMO_HOME -executionfile results/execute_demo-project.json
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
-#./peass visualizerca -data ../demo-project_peass -propertyFolder results/properties_demo-project/
-./peass visualizerca
+./peass visualizerca -data ../demo-project_peass -propertyFolder results/properties_demo-project/
 
-#if [ $? -ne 0 ]
-#	then exit 1
-#fi
+if [ $? -ne 0 ]
+	then exit 1
+fi
 
 #Check, if a slowdown is detected for innerMethod
 (
 	state=$(grep '"call" : "de.test.Callee#innerMethod",\|state' results/$version/de.test.CalleeTest_onlyCallMethod1.js | grep "innerMethod" -A 1 | grep '"state" : "SLOWER",' | grep -o 'SLOWER')
-	if [ "$state" != "SLOWER" ]
+	#if [ "$state" != "SLOWER" ]
+    if true
 	then
 		echo "State for de.test.Callee#innerMethod in de.test.CalleeTest#onlyCallMethod1.html has not the expected value SLOWER, but was $state!"
 		cat results/$version/de.test.CalleeTest_onlyCallMethod1.js
