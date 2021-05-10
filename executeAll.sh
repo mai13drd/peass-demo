@@ -10,8 +10,7 @@ right_sha="$(cd ../demo-project && git rev-parse HEAD)"
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
-#./peass select -folder $DEMO_HOME
-./peass select
+./peass select -folder $DEMO_HOME
 
 if [ ! -f results/execute_demo-project.json ]
 then
@@ -52,12 +51,12 @@ echo "::::::::::::::::::::SEARCHCAUSE:::::::::::::::::::::::::::::::::::::::"
 ./peass searchcause -vms 5 -iterations 1 -warmup 0 -version $version -test de.test.CalleeTest\#onlyCallMethod1 -folder $DEMO_HOME -executionfile results/execute_demo-project.json
 
 echo "::::::::::::::::::::VISUALIZERCA::::::::::::::::::::::::::::::::::::::"
-./peass visualizerca -data ../demo-project_peass -propertyFolder results/properties_demo-project/
+#./peass visualizerca -data ../demo-project_peass -propertyFolder results/properties_demo-project/
+./peass visualizerca
 
-
-if [ $? -ne 0 ]
-	then exit 1
-fi
+#if [ $? -ne 0 ]
+#	then exit 1
+#fi
 
 #Check, if a slowdown is detected for innerMethod
 (
