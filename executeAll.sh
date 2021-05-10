@@ -10,10 +10,8 @@ right_sha="$(cd ../demo-project && git rev-parse HEAD)"
 
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
-(
-	#./peass select -folder $DEMO_HOME
-    ./peass select
-) && true
+#./peass select -folder $DEMO_HOME
+./peass select
 
 if [ ! -f results/execute_demo-project.json ]
 then
