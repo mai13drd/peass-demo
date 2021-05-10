@@ -11,7 +11,8 @@ right_sha="$(cd ../demo-project && git rev-parse HEAD)"
 # It is assumed that $DEMO_HOME is set correctly and PeASS has been built!
 echo ":::::::::::::::::::::SELECT:::::::::::::::::::::::::::::::::::::::::::"
 (
-	./peass select -folder $DEMO_HOME
+	#./peass select -folder $DEMO_HOME
+    ./peass select
 ) && true
 
 if [ ! -f results/execute_demo-project.json ]
@@ -35,10 +36,8 @@ echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 ./peass getchanges -data ../demo-project_peass/ -dependencyfile results/deps_demo-project.json
 
 #Check, if changes_demo-project.json contains the correct commit-SHA
-#test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
-echo "right_sha is: $right_sha"
-#if [ "$right_sha" != "$test_sha" ]
-if true
+test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
+if [ "$right_sha" != "$test_sha" ]
 then
     echo "commit-SHA is not equal to the SHA in changes_demo-project.json!"
 	cat results/statistics/demo-project.json
