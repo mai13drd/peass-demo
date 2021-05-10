@@ -36,7 +36,9 @@ echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 
 #Check, if changes_demo-project.json contains the correct commit-SHA
 (
-	test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
+	#test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
+    echo "right_sha is: $right_sha"
+    test_sha="wrong"
 	if [ "$right_sha" != "$test_sha" ]
 	then
 		echo "commit-SHA is not equal to the SHA in changes_demo-project.json!"
