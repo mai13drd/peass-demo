@@ -35,19 +35,17 @@ echo "::::::::::::::::::::GETCHANGES::::::::::::::::::::::::::::::::::::::::"
 ./peass getchanges -data ../demo-project_peass/ -dependencyfile results/deps_demo-project.json
 
 #Check, if changes_demo-project.json contains the correct commit-SHA
-(
-	#test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
-    echo "right_sha is: $right_sha"
-    test_sha="wrong"
-	if [ "$right_sha" != "$test_sha" ]
-	then
-		echo "commit-SHA is not equal to the SHA in changes_demo-project.json!"
-		cat results/statistics/demo-project.json
-		exit 1
-	else
-		echo "changes_demo-project.json contains the correct commit-SHA."
-	fi
-) && true
+#test_sha=$(grep -A1 'versionChanges" : {' results/changes_demo-project.json | grep -v '"versionChanges' | grep -Po '"\K.*(?=")')
+echo "right_sha is: $right_sha"
+#if [ "$right_sha" != "$test_sha" ]
+if true
+then
+    echo "commit-SHA is not equal to the SHA in changes_demo-project.json!"
+	cat results/statistics/demo-project.json
+	exit 1
+else
+	echo "changes_demo-project.json contains the correct commit-SHA."
+fi
 
 # If minor updates to the project occur, the version name may change
 version=$(cat results/execute_demo-project.json | grep "versions" -A 4 | tail -n 1 | tr -d "\": {")
