@@ -24,7 +24,7 @@ then
 	ls $DEMO_PROJECT_PEASS/logs/
 
 	echo "projektTemp"
-	ls ../demo-project_peass/projectTemp/
+	ls $DEMO_PROJECT_PEASS/projectTemp/
 
 	echo "projectTemp/tree_"$VERSION"_peass:"
     ls $DEMO_PROJECT_PEASS/projectTemp/tree_"$VERSION"_peass/
