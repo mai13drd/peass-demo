@@ -5,11 +5,11 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ master ]
+    branches: [ versionsSetHard ]
   pull_request:
-    branches: [ master ]
+    branches: [ versionsSetHard ]
   workflow_dispatch:
-    branches: [ master ]
+    branches: [ versionsSetHard ]
   schedule:
     - cron: "0 4 * * *"
 jobs:
